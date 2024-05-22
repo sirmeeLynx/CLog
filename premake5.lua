@@ -65,22 +65,22 @@ project "Sandbox"
 	}
 
 	includedirs {
-		"lwlog/src"
+		"CLog/src"
 	}
 
 	links {
-		"lwlog"
+		"CLog"
 	}
 
 	filter "system:windows"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines "LWLOG_DEBUG"
+		defines "CLOG_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "LWLOG_RELEASE"
+		defines "CLOG_RELEASE"
 		runtime "Release"
 		optimize "on"

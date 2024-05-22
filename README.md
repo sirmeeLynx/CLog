@@ -1,114 +1,23 @@
-[![Windows](https://github.com/ChristianPanov/lwlog/actions/workflows/windows.yml/badge.svg?branch=master)](https://github.com/ChristianPanov/lwlog/actions/workflows/windows.yml)
-[![Linux](https://github.com/ChristianPanov/lwlog/actions/workflows/linux.yml/badge.svg)](https://github.com/ChristianPanov/lwlog/actions/workflows/linux.yml)
-[![macOS](https://github.com/ChristianPanov/lwlog/actions/workflows/macOS.yml/badge.svg)](https://github.com/ChristianPanov/lwlog/actions/workflows/macOS.yml)\
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/05f2384593ed49bbaa51fa2516793d99)](https://app.codacy.com/gh/ChristianPanov/lwlog?utm_source=github.com&utm_medium=referral&utm_content=ChristianPanov/lwlog&utm_campaign=Badge_Grade)
-[![CodeFactor](https://www.codefactor.io/repository/github/christianpanov/lwlog/badge)](https://www.codefactor.io/repository/github/christianpanov/lwlog)\
-Very fast C++17 logging library
 # Install
 ```
-git clone --recursive https://github.com/ChristianPanov/lwlog
+git clone --recursive https://github.com/Sirmeelynx/CLog
 ```
-# The Most Important Question - Why Yet Another Logging Library?
-_Another logging library, how boring, right, as If we don't see a new one each week. So why do I keep shoving it down your throats for a drop of recognition? I will cut short on the speed or code simplicity that every other logging library boasts about. The actual importance of the library lies within its meaning to me. This library has served as a pivotal factor in my journey to becoming a software craftsman. I started it when I knew very little about C++, let alone software engineering, and when I still made no distinction between writing reusable pieces of code and crafting libraries. I can say that I am proud of what I've made, for it has been a long journey comprised of not giving up and constantly daring to do what was currently impossible for me, which forced me to broaden my knowledge very quickly and apply that knowledge in practice. As you will see later in the documentation, I do claim this library to be very fast and to have very clean code. I do claim to have designed it in a good way. However, even if that weren't objectively true, that would make no difference in the importance of this work to me, as I would still be just as proud of it, for it's an extension of my essence, a reflection of my discipline, perseverance, my desire for perfection and improvement, and if it were a half-baked product of any of those attributes, I would rest assured that it's only a matter of time before it sheds its ugly skin and something better emerges from within._
-
-_No matter what you do or say, there will always be people who hold a different view. It might always happen that you were in the wrong or that you could have done better. Anyone could take away the joy of your creation. However, no one can take away the hours you've spent crafting it, no one can take away the hours you've spent studying and learning in the process, no one can take away the times when you've felt the pride-inducing adrenaline rush when you faced a challenge that was out of your league, were stubborn enough not to give up, and actually did it. No one can take away any of that, any of the things that should make you proud. That's what real craftsmanship is - taking pride in what you do with all your heart and being too stubborn to give up on the currently impossible._
-
-# Design Highlights
-- **Code Base:** The code is crafted with clarity, elegance, and readability in mind, hoping it is structured enough to prove relatively easy for developers to understand, modify, extend, and learn from.
-- **Performance:** ***lwlog*** offers very fast logging capabilities, both in synchronous and asynchronous modes, ensuring minimal impact on your application’s performance.
-- **Extensibility:** Adding new types of sinks and loggers is straightforward, providing flexibility to adapt the library to your specific needs. [Check out how to create your own sink for a practical example](https://github.com/ChristianPanov/lwlog#creating-your-own-sink)
-- **Configurability:** ***lwlog*** uses [policy classes](https://github.com/ChristianPanov/lwlog#logger-configuration) which you can just plug in based on your needs.
-- **Ease of Use:** ***lwlog*** tries to follow a philosophy of intuitiveness. As the author, I am biased, so I can only hope the API is as intuitive as I see it in my eyes. Convenient easy-to-use predefined types([convenience aliases](https://github.com/ChristianPanov/lwlog#convenience-logger-aliases)) are made for simplicity without too much configuration. Most of the time, you will be just fine with using the predefined types.
 # Features
 - Written in modern C++17
 - Very fast synchronous and asynchronous logging
-- Forward(default, linear) and [deferred(non-linear)](https://github.com/ChristianPanov/lwlog#deferred-logging) logging mechanisms
+- Forward(default, linear) and [deferred(non-linear)](https://github.com/Sirmeelynx/CLog#deferred-logging) logging mechanisms
 - Verbosity levels
 - Various log sinks
 	- Console (stdout, stderr)
 	- File
 	- Custom sinks (it's extremely easy to add your own custom sinks)
-- Support for both [compile-time](https://github.com/ChristianPanov/lwlog#multiple-sinks-compile-time) and [runtime](https://github.com/ChristianPanov/lwlog#multiple-sinks-runtime) sink configuration
+- Support for both [compile-time](https://github.com/Sirmeelynx/CLog#multiple-sinks-compile-time) and [runtime](https://github.com/Sirmeelynx/CLog#multiple-sinks-runtime) sink configuration
 - Custom sink configuration - each sink can have a unique log pattern and verbosity level
-- Log formatting according to a [custom user-defined pattern](https://github.com/ChristianPanov/lwlog#formatting)
-- [Source Metainformation Attributes](https://github.com/ChristianPanov/lwlog/blob/master/README.md#source-metainformation-function-name-file-path-current-line)
-- [Custom Attributes](https://github.com/ChristianPanov/lwlog#custom-attributes)
+- Log formatting according to a [custom user-defined pattern](https://github.com/Sirmeelynx/CLog#formatting)
+- [Source Metainformation Attributes](https://github.com/Sirmeelynx/CLog/blob/master/README.md#source-metainformation-function-name-file-path-current-line)
+- [Custom Attributes](https://github.com/Sirmeelynx/CLog#custom-attributes)
 - Global logger registry
-# TODO
-- Memory-mapped file sink
-- Package managers support
-- Continuous Integration
-# Benchmarks
-Benchmarked with picobench(https://github.com/iboB/picobench)
 
-**lwlog(*synchronous*)** *vs* **spdlog(*synchronous*)**
-```
-===============================================================================
-   Name (baseline is *)   |   Dim   |  Total ms |  ns/op  |Baseline| Ops/second
-===============================================================================
-            lwlog_bench * |       8 |     0.652 |   81512 |      - |    12268.1
-             spdlog_bench |       8 |     4.844 |  605500 |  7.428 |     1651.5
-            lwlog_bench * |      64 |     5.347 |   83540 |      - |    11970.2
-             spdlog_bench |      64 |    46.576 |  727746 |  8.711 |     1374.1
-            lwlog_bench * |     512 |    53.725 |  104931 |      - |     9530.1
-             spdlog_bench |     512 |   135.479 |  264606 |  2.522 |     3779.2
-            lwlog_bench * |    4096 |   451.722 |  110283 |      - |     9067.5
-             spdlog_bench |    4096 |  1205.387 |  294283 |  2.668 |     3398.1
-            lwlog_bench * |    8192 |   923.731 |  112760 |      - |     8868.4
-             spdlog_bench |    8192 |  2334.964 |  285029 |  2.528 |     3508.4
-===============================================================================
-```
-**lwlog(*synchronous, buffered*)** *vs* **spdlog(*synchronous*)**
-```
-===============================================================================
-   Name (baseline is *)   |   Dim   |  Total ms |  ns/op  |Baseline| Ops/second
-===============================================================================
-            lwlog_bench * |       8 |     0.016 |    2012 |      - |   496894.4
-             spdlog_bench |       8 |     5.144 |  642950 |319.478 |     1555.3
-            lwlog_bench * |      64 |     0.078 |    1218 |      - |   820512.8
-             spdlog_bench |      64 |    19.179 |  299673 |245.886 |     3337.0
-            lwlog_bench * |     512 |     0.629 |    1228 |      - |   813731.7
-             spdlog_bench |     512 |   180.569 |  352673 |286.982 |     2835.5
-            lwlog_bench * |    4096 |     4.961 |    1211 |      - |   825640.0
-             spdlog_bench |    4096 |  1230.367 |  300382 |248.008 |     3329.1
-            lwlog_bench * |    8192 |    11.767 |    1436 |      - |   696160.6
-             spdlog_bench |    8192 |  2793.686 |  341026 |237.409 |     2932.3
-===============================================================================
-```
-**lwlog(*asynchronous, blocking*)** *vs* **spdlog(*asynchronous, blocking*)**
-```
-===============================================================================
-   Name (baseline is *)   |   Dim   |  Total ms |  ns/op  |Baseline| Ops/second
-===============================================================================
-            lwlog_bench * |       8 |     0.000 |      50 |      - | 20000000.0
-             spdlog_bench |       8 |     0.006 |     812 | 16.250 |  1230769.2
-            lwlog_bench * |      64 |     0.002 |      34 |      - | 29090909.1
-             spdlog_bench |      64 |     0.016 |     243 |  7.091 |  4102564.1
-            lwlog_bench * |     512 |     0.017 |      33 |      - | 30295858.0
-             spdlog_bench |     512 |     0.069 |     133 |  4.059 |  7463556.9
-            lwlog_bench * |    4096 |     4.290 |    1047 |      - |   954756.3
-             spdlog_bench |    4096 |  2316.282 |  565498 |539.913 |     1768.4
-            lwlog_bench * |    8192 |     9.852 |    1202 |      - |   831481.0
-             spdlog_bench |    8192 |  2050.576 |  250314 |208.132 |     3995.0
-===============================================================================
-```
-**lwlog(*asynchronous, nonblocking*)** *vs* **spdlog(*asynchronous, nonblocking*)**
-```
-===============================================================================
-   Name (baseline is *)   |   Dim   |  Total ms |  ns/op  |Baseline| Ops/second
-===============================================================================
-            lwlog_bench * |       8 |     0.000 |      37 |      - | 26666666.7
-             spdlog_bench |       8 |     0.006 |     775 | 20.667 |  1290322.6
-            lwlog_bench * |      64 |     0.002 |      32 |      - | 30476190.5
-             spdlog_bench |      64 |     0.028 |     434 | 13.238 |  2302158.3
-            lwlog_bench * |     512 |     0.016 |      31 |      - | 32000000.0
-             spdlog_bench |     512 |     0.103 |     201 |  6.438 |  4970873.8
-            lwlog_bench * |    4096 |     0.180 |      43 |      - | 22730299.7
-             spdlog_bench |    4096 |     0.673 |     164 |  3.737 |  6082566.1
-            lwlog_bench * |    8192 |     0.426 |      52 |      - | 19230046.9
-             spdlog_bench |    8192 |     1.036 |     126 |  2.431 |  7911154.0
-===============================================================================
-```
 # Logical Architecture
 ```
 Registry
@@ -116,7 +25,7 @@ Registry
     └── Sink
         └── Record
 ```
-The architecture of ***lwlog*** is very simple, it's divided into three main modules - the **registry**, the **logger**, the **sinks**, and the **record**.
+The architecture of ***CLog*** is very simple, it's divided into three main modules - the **registry**, the **logger**, the **sinks**, and the **record**.
 Module | Description
 ------------ | -------------
 ```Record``` | An object that encapsulates the data that will be logged, including the message, logging level, metadata (current line, file, and function), timepoint, and execution context (current thread ID and process ID).
@@ -126,21 +35,21 @@ Module | Description
 # Usage
 ## Basic Usage
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
 	auto console = std::make_shared<
-		lwlog::logger<
-			lwlog::default_log_policy,
-			lwlog::default_storage_policy,
-			lwlog::default_flush_policy,
-			lwlog::single_threaded_policy,
-			lwlog::sinks::stdout_sink
+		CLog::logger<
+			CLog::default_log_policy,
+			CLog::default_storage_policy,
+			CLog::default_flush_policy,
+			CLog::single_threaded_policy,
+			CLog::sinks::stdout_sink
 			>
 		>("CONSOLE");
 	
-	console->set_level_filter(lwlog::level::info | lwlog::level::debug | lwlog::level::critical);
+	console->set_level_filter(CLog::level::info | CLog::level::debug | CLog::level::critical);
 	console->set_pattern("[%T] [%n] [%l]: %v");
 	console->critical("First critical message");
 	
@@ -148,29 +57,29 @@ int main()
 }
 ```
 ## Convenience logger aliases
-***lwlog.h*** simplifies the process of creating and configuring loggers through a set of convenient aliases at your disposal which you can find in the [***lwlog.h***](https://github.com/ChristianPanov/lwlog/blob/master/lwlog/src/lwlog.h) header file.
+***CLog.h*** simplifies the process of creating and configuring loggers through a set of convenient aliases at your disposal which you can find in the [***CLog.h***](https://github.com/Sirmeelynx/CLog/blob/master/CLog/src/CLog.h) header file.
 - **Ease of Use:** These aliases are intended for ease of use, simplifying the setup process, and offering straightforward access to logging functionalities. They are predefined with default configurations, making them ideal for general purposes.
-- **Predefined Configurations:** The aliases come with predefined default settings, eliminating the need for extensive configuration in many use cases. This approach allows you to quickly integrate ***lwlog.h*** into your project and start logging with minimal setup.
+- **Predefined Configurations:** The aliases come with predefined default settings, eliminating the need for extensive configuration in many use cases. This approach allows you to quickly integrate ***CLog.h*** into your project and start logging with minimal setup.
 - **Recommended Usage:** I recommend using these aliases for most of your logging needs, as they provide a balanced and simplified interface. However, if your project requires more specialized configurations or functionalities beyond the defaults, feel free to explore the more advanced options available through direct use of the logger class.
   
 Alias | Description
 ------------ | -------------
-```lwlog::basic_logger``` | Synchronous logger configured with standard flush policy, not thread-safe
-```lwlog::console_logger``` | basic_logger which sinks to stdout
-```lwlog::file_logger``` | basic_logger which sinks to a file
-```lwlog::async_logger``` | Asynchronous logger configured with standard flush policy, not thread-safe
-```lwlog::async_console_logger``` | async_logger which sinks to stdout
-```lwlog::async_file_logger``` | async_logger which sinks to a file
+```CLog::basic_logger``` | Synchronous logger configured with standard flush policy, not thread-safe
+```CLog::console_logger``` | basic_logger which sinks to stdout
+```CLog::file_logger``` | basic_logger which sinks to a file
+```CLog::async_logger``` | Asynchronous logger configured with standard flush policy, not thread-safe
+```CLog::async_console_logger``` | async_logger which sinks to stdout
+```CLog::async_file_logger``` | async_logger which sinks to a file
 #### Example
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
-	auto basic = std::make_shared<lwlog::basic_logger<lwlog::sinks::stdout_sink>>("CONSOLE");
+	auto basic = std::make_shared<CLog::basic_logger<CLog::sinks::stdout_sink>>("CONSOLE");
 	
-	auto console = std::make_shared<lwlog::console_logger>("CONSOLE");
-	auto file = std::make_shared<lwlog::file_logger>("FILE", "C:/Users/user/Desktop/LogFolder/LOGS.txt");
+	auto console = std::make_shared<CLog::console_logger>("CONSOLE");
+	auto file = std::make_shared<CLog::file_logger>("FILE", "C:/Users/user/Desktop/LogFolder/LOGS.txt");
 	
 	return 0;
 }
@@ -178,33 +87,33 @@ int main()
 ## Thread-safety
 Both the sinks and the logger classes expect a threading policy as a template parameter, which will determine whether they will be thread-safe or not.
 However, if you want to use the convenience aliases mentioned above, you need to keep in mind they are not thread-safe.\
-To facilitate ease of use while ensuring thread safety, ***lwlog*** offers thread-safe variants for all of its convenience aliases. These variants are distinguished by an ```_mt``` suffix in their names, indicating “multi-threaded” capability.
+To facilitate ease of use while ensuring thread safety, ***CLog*** offers thread-safe variants for all of its convenience aliases. These variants are distinguished by an ```_mt``` suffix in their names, indicating “multi-threaded” capability.
 ## Logger configuration
 Policy | Description
 ------------ | -------------
-```lwlog::synchronous_policy``` | Your standard linear logging mechanism. You call a log function, and it's immediately processed and outputted to the specified sink. Works on a single thread, no background threads doing any processing
-```lwlog::asynchronous_policy``` | As the name suggests, log calls are processed asynchronously, meaning they are handed off to a background thread to do the necessary operations on the log message and output it, allowing the originating thread to continue its execution in parallel
-```lwlog::default_overflow_policy``` | Convenience alias for ```lwlog::blocking_overflow_policy```
-```lwlog::blocking_overflow_policy``` | Configuration for the lwlog::asynchronous_policy class, on full queue the log operation enters a state of busy-wait, waiting for the queue to empty a slot for the new log message. It trades performance for safety, as no log messages will be lost in a high throughput environment where it's more likely to enqueue messages faster than they can be dequeued. However, performance decreases are minimal and are usually irrelevant
-```lwlog::overwrite_last_overflow_policy``` | Configuration for the lwlog::asynchronous_policy class, on full queue the log operation overwrites the last message in the queue with the new one
-```lwlog::discard_new_overflow_policy``` | Configuration for the lwlog::asynchronous_policy class, on full queue the log operation discards the new message
-```lwlog::default_flush_policy``` | Convenience alias for ```lwlog::immediate_flush_policy```
-```lwlog::buffered_flush_policy``` | Is functional only with stream sinks(stdout, stderr, file). Configures the sink with a manually increased buffer. Provides significant performance improvement, but messages are not flushed from the stream until the buffer is full, which could potentially lead to loss of data. It accepts a template parameter for the size of the buffer, by default it's **2^22 bytes**, bigger than the default one provided by the C++ specification(**512 bytes**)
-```lwlog::immediate_flush_policy``` | Is functional only with stream sinks(stdout, stderr, file). Configures the sink with a flush function call after every log. Performance is not as good but is safer as all messages are flushed immediately on write, meaning no message could be potentially lost
-```lwlog::single_threaded_policy``` | Configures the sinks with a placeholder mutex and locks - use it if you don't need thread-safety, it is more lightweight than a thread-safe logger
-```lwlog::multi_threaded_policy``` | Configures the sinks with a mutex and locks for thread-safety
+```CLog::synchronous_policy``` | Your standard linear logging mechanism. You call a log function, and it's immediately processed and outputted to the specified sink. Works on a single thread, no background threads doing any processing
+```CLog::asynchronous_policy``` | As the name suggests, log calls are processed asynchronously, meaning they are handed off to a background thread to do the necessary operations on the log message and output it, allowing the originating thread to continue its execution in parallel
+```CLog::default_overflow_policy``` | Convenience alias for ```CLog::blocking_overflow_policy```
+```CLog::blocking_overflow_policy``` | Configuration for the CLog::asynchronous_policy class, on full queue the log operation enters a state of busy-wait, waiting for the queue to empty a slot for the new log message. It trades performance for safety, as no log messages will be lost in a high throughput environment where it's more likely to enqueue messages faster than they can be dequeued. However, performance decreases are minimal and are usually irrelevant
+```CLog::overwrite_last_overflow_policy``` | Configuration for the CLog::asynchronous_policy class, on full queue the log operation overwrites the last message in the queue with the new one
+```CLog::discard_new_overflow_policy``` | Configuration for the CLog::asynchronous_policy class, on full queue the log operation discards the new message
+```CLog::default_flush_policy``` | Convenience alias for ```CLog::immediate_flush_policy```
+```CLog::buffered_flush_policy``` | Is functional only with stream sinks(stdout, stderr, file). Configures the sink with a manually increased buffer. Provides significant performance improvement, but messages are not flushed from the stream until the buffer is full, which could potentially lead to loss of data. It accepts a template parameter for the size of the buffer, by default it's **2^22 bytes**, bigger than the default one provided by the C++ specification(**512 bytes**)
+```CLog::immediate_flush_policy``` | Is functional only with stream sinks(stdout, stderr, file). Configures the sink with a flush function call after every log. Performance is not as good but is safer as all messages are flushed immediately on write, meaning no message could be potentially lost
+```CLog::single_threaded_policy``` | Configures the sinks with a placeholder mutex and locks - use it if you don't need thread-safety, it is more lightweight than a thread-safe logger
+```CLog::multi_threaded_policy``` | Configures the sinks with a mutex and locks for thread-safety
 #### Example
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
 	auto console = std::make_shared<
-		lwlog::logger<
-			lwlog::synchronous_policy,
-			lwlog::default_flush_policy,
-			lwlog::single_threaded_policy,
-			lwlog::sinks::stdout_sink
+		CLog::logger<
+			CLog::synchronous_policy,
+			CLog::default_flush_policy,
+			CLog::single_threaded_policy,
+			CLog::sinks::stdout_sink
 			>
 		>("CONSOLE");
 	
@@ -218,24 +127,24 @@ The core of the asynchronous logger is it's queue, which can operate based on tw
 1. **Thread-Safe (MPSC Model):** When thread safety is enabled, implying the possibility of multiple threads producing log messages simultaneously, the queue operates based on the MPSC model. This ensures that all log messages are safely enqueued, even when multiple threads are involved.
 2. **Non Thread-Safe(SPSC Model):** Conversely, when the logger is configured as non-thread-safe, indicating that log messages will only be produced by a single thread, the queue operates on the faster and lighter SPSC model.
 ### Configuration
-The ```lwlog::asynchronous_policy``` structure expects two template parameters for configuration:
-1. **Queue Capacity:** The maximum number of log messages the queue can hold. The default value is set to **1024**, which can also be accessed by the ```lwlog::default_async_queue_size``` global variable.
-2. **Queue Overflow Policy:** Defines the behavior when the queue is full. The default policy is ```lwlog::block_overflow_policy```, which blocks the producing thread until space is available in the queue.
+The ```CLog::asynchronous_policy``` structure expects two template parameters for configuration:
+1. **Queue Capacity:** The maximum number of log messages the queue can hold. The default value is set to **1024**, which can also be accessed by the ```CLog::default_async_queue_size``` global variable.
+2. **Queue Overflow Policy:** Defines the behavior when the queue is full. The default policy is ```CLog::block_overflow_policy```, which blocks the producing thread until space is available in the queue.
 #### Example
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
 	auto console = std::make_shared<
-		lwlog::logger<
-			lwlog::asynchronous_policy<
-				lwlog::default_async_queue_size,
-				lwlog::default_overflow_policy
+		CLog::logger<
+			CLog::asynchronous_policy<
+				CLog::default_async_queue_size,
+				CLog::default_overflow_policy
 			>,
-			lwlog::default_flush_policy,
-			lwlog::single_threaded_policy,
-			lwlog::sinks::stdout_sink
+			CLog::default_flush_policy,
+			CLog::single_threaded_policy,
+			CLog::sinks::stdout_sink
 			>
 		>("CONSOLE");
 	
@@ -247,7 +156,7 @@ int main()
 ## Formatting
 Formatting is handled with a pay for what you need approach.\
 The user can set a pattern, by which the log messages will be formatted. This pattern is internal to the library language, which is a sequence of formatting flags, alignment specifications(optional), characters, and color flags(optional). It allows flexibility in terms of configuring the output information in the most appropriate for the situation way, allowing as meaningful log output as possible.\
-How is formatting done? - A pattern is set, and then it gets compiled by the library. Compilation is done in the ```lwlog::details::pattern``` class. It first parses the pattern and extracts the formatting flags, which are then used to retrieve only the formatters the pattern will need. It also parses the alignment specifications and extracts all the needed information for the alignments. In the end, all the retrieved formatters are called on the pattern and all formatting flags are replaced with their corresponding values and their corresponding alignment specifications(if any).
+How is formatting done? - A pattern is set, and then it gets compiled by the library. Compilation is done in the ```CLog::details::pattern``` class. It first parses the pattern and extracts the formatting flags, which are then used to retrieve only the formatters the pattern will need. It also parses the alignment specifications and extracts all the needed information for the alignments. In the end, all the retrieved formatters are called on the pattern and all formatting flags are replaced with their corresponding values and their corresponding alignment specifications(if any).
 ### Syntax
 Verbose flag | Short flag | Description | Example
 ------------ | ------------- | ------------- | -------------
@@ -257,7 +166,7 @@ Verbose flag | Short flag | Description | Example
 ```{thread}``` | ```%t``` | Thread id | "7592"
 ```{process}``` | ```%P``` | Process id | "22164"
 ```{line}``` | ```%#``` | Current line on which the log function is called | "84"
-```{file}``` | ```%@``` | Path of the file in which the log function is called | "C:\Users\user\Desktop\lwlog\Sandbox\Sandbox.cpp"
+```{file}``` | ```%@``` | Path of the file in which the log function is called | "C:\Users\user\Desktop\CLog\Sandbox\Sandbox.cpp"
 ```{func}``` | ```%!``` | Name of the function in which the log function is called | "main"
 ```{topic}``` | ```%?``` | Name of the current topic | "topic name"
 ```{date}``` | ```%F``` | Current date YY-MM-DD | "2021-01-01"
@@ -282,11 +191,11 @@ Verbose flag | Short flag | Description | Example
 ```{microsec}``` | ```%f``` | Microsecond part of the current second 000000-999999 | "830564"
 ```{nanosec}``` | ```%E``` | Nanosecond part of the current second 000000000-999999999 | "830564200"
 ### Source Metainformation (function name, file path, current line)
-***lwlog*** offers the ability to integrate source code meta information as attributes in your logs, capturing details like the current line number, file path, and function name from the point where the log function is called.
+***CLog*** offers the ability to integrate source code meta information as attributes in your logs, capturing details like the current line number, file path, and function name from the point where the log function is called.
 - **Compiler Intrinsics:** This functionality is made possible through the use of compiler intrinsics, which were first introduced in GCC and are now supported by MSVC as well.
-- **No Macros Needed:** Unlike other logging libraries, ***lwlog*** achieves this without the need for additional macros, resulting in cleaner and more straightforward code.
+- **No Macros Needed:** Unlike other logging libraries, ***CLog*** achieves this without the need for additional macros, resulting in cleaner and more straightforward code.
 - **Version Requirements:** To utilize these features, a newer version of Visual Studio (version 1927 or later) is required, as it includes the necessary intrinsic implementations. If an older version is used, any metainformation flags in your log patterns will result in nothing.
-- **Standard Compatibility:** While C++20 introduced std::source_location for similar purposes, ***lwlog*** does not mandate its usage. This design choice ensures broader compatibility, allowing users to benefit from source code meta information without being forced to adopt the latest C++ standard.
+- **Standard Compatibility:** While C++20 introduced std::source_location for similar purposes, ***CLog*** does not mandate its usage. This design choice ensures broader compatibility, allowing users to benefit from source code meta information without being forced to adopt the latest C++ standard.
 ### Alignment Syntax
 Alignment specifications are individual to an attribute, and they contain an alignment side, width, and an optional fill character, which by default, if not specified, is an empty space.
 
@@ -298,11 +207,11 @@ Syntax | Example | Result
 ```:^<fill_character><width><flag>``` | ```[:^-12%l]``` | "[----info----]"
 #### Example
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
-	auto console = std::make_shared<lwlog::console_logger>("CONSOLE");
+	auto console = std::make_shared<CLog::console_logger>("CONSOLE");
 	console->set_pattern("[%T] [%n] [:^12%l]: %v");
 
 	console->info("First info message");
@@ -341,7 +250,7 @@ Background Color Flag | Bright Background Color Flag
 ```.bg_white()``` | ```.br_bg_white()```
 #### Example
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
@@ -356,7 +265,7 @@ int main()
 ### Level-based colors
 You can also color your logs based on the severity level of the log with this flag - ```.level()```. Each severity level has a different color.
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
@@ -374,18 +283,18 @@ Attributes serve as dynamic placeholders within log messages, providing a flexib
 2. **Value:** A reference to the variable that holds the data to be logged. This can be any type of data that you wish to include in your log messages.
 3. **Callback Function:** A function responsible for converting the attribute’s value to a string representation, ensuring it can be seamlessly incorporated into the log message. This function must always return a string.
 ### Default and Custom Callback Functions
-- **Default Callback:** If no callback function is explicitly provided for an attribute, lwlog will utilize a default callback. This default function is capable of handling basic data types, including all arithmetic types and strings.
+- **Default Callback:** If no callback function is explicitly provided for an attribute, CLog will utilize a default callback. This default function is capable of handling basic data types, including all arithmetic types and strings.
 - **Custom Callback:** For more complex data types, specific formatting requirements, or if some operation on the value needs to be done, you can provide a custom callback function. This enables tailored string conversion to ensure your logged data appears exactly as you need it.
 
-When a log message is being formatted, ***lwlog*** will identify instances of the attribute's flag within the log pattern. The callback function is then invoked with the attribute's value, and the resulting string replaces the flag in the log pattern.
+When a log message is being formatted, ***CLog*** will identify instances of the attribute's flag within the log pattern. The callback function is then invoked with the attribute's value, and the resulting string replaces the flag in the log pattern.
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
 	std::string current_status = "inactive";
 	
-	auto console = std::make_shared<lwlog::console_logger>("CONSOLE");
+	auto console = std::make_shared<CLog::console_logger>("CONSOLE");
 	console->add_attribute("{status}", current_status);
 	console->set_pattern("{status} --- [%T] [%n] [%l]: %v");
 	
@@ -399,17 +308,17 @@ int main()
 ```active --- [19:44:50] [CONSOLE] [info]: First info message```
 ## Multiple sinks (compile-time)
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
 	auto logger = std::make_shared<
-		lwlog::logger<
-			lwlog::synchronous_policy,
-			lwlog::default_flush_policy,
-			lwlog::single_threaded_policy,
-			lwlog::sinks::stdout_sink
-      			lwlog::sinks::file_sink
+		CLog::logger<
+			CLog::synchronous_policy,
+			CLog::default_flush_policy,
+			CLog::single_threaded_policy,
+			CLog::sinks::stdout_sink
+      			CLog::sinks::file_sink
 			>
 		>("LOGGER", "C:/Users/user/Desktop/LogFolder/LOGS.txt");
 
@@ -423,24 +332,24 @@ int main()
 ```
 ## Multiple sinks (runtime)
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
-	auto console_sink 	= std::make_shared<lwlog::sinks::stdout_sink<lwlog::single_threaded_policy>>();
-	auto file_sink 		= std::make_shared<lwlog::sinks::file_sink<lwlog::single_threaded_policy>>("C:/Users/user/Desktop/LogFolder/LOGS.txt");
-	lwlog::sink_list sinks 	= { console_sink, file_sink };
+	auto console_sink 	= std::make_shared<CLog::sinks::stdout_sink<CLog::single_threaded_policy>>();
+	auto file_sink 		= std::make_shared<CLog::sinks::file_sink<CLog::single_threaded_policy>>("C:/Users/user/Desktop/LogFolder/LOGS.txt");
+	CLog::sink_list sinks 	= { console_sink, file_sink };
 
-	auto logger_iterator 	= std::make_shared<lwlog::basic_logger<>>("ITERATOR", sinks.begin(), sinks.end());
-	auto logger_sink_list 	= std::make_shared<lwlog::basic_logger<>>("SINK_LIST", sinks);
-	auto logger_single_sink = std::make_shared<lwlog::basic_logger<>>("SINGLE_SINK", console_sink);
+	auto logger_iterator 	= std::make_shared<CLog::basic_logger<>>("ITERATOR", sinks.begin(), sinks.end());
+	auto logger_sink_list 	= std::make_shared<CLog::basic_logger<>>("SINK_LIST", sinks);
+	auto logger_single_sink = std::make_shared<CLog::basic_logger<>>("SINGLE_SINK", console_sink);
 	
 	auto logger_combined = std::make_shared<
-		lwlog::logger<
-			lwlog::synchronous_policy,
-			lwlog::default_flush_policy,
-			lwlog::single_threaded_policy,
-			lwlog::sinks::stdout_sink
+		CLog::logger<
+			CLog::synchronous_policy,
+			CLog::default_flush_policy,
+			CLog::single_threaded_policy,
+			CLog::sinks::stdout_sink
 			>
 		>("COMBINED", file_sink);
 
@@ -448,11 +357,11 @@ int main()
 }
 ```
 ## Creating your own sink
-As already mentioned, ***lwlog*** is extremely easy to extend, making it straightforward to add your own custom sinks. Below, we walk through the process of creating a custom sink, using ```lwlog::sinks::stdout_sink``` as a practical example.
+As already mentioned, ***CLog*** is extremely easy to extend, making it straightforward to add your own custom sinks. Below, we walk through the process of creating a custom sink, using ```CLog::sinks::stdout_sink``` as a practical example.
 ### Step 1: Inherit from the Base Sink Class
-Begin by inheriting from ```lwlog::sinks::sink```, which serves as the base class for all sinks in ***lwlog***. Your custom sink class should also implement the ```sink_it()``` method, which is responsible for outputting the log message.
+Begin by inheriting from ```CLog::sinks::sink```, which serves as the base class for all sinks in ***CLog***. Your custom sink class should also implement the ```sink_it()``` method, which is responsible for outputting the log message.
 ```cpp
-namespace lwlog::sinks
+namespace CLog::sinks
 {
 	template<typename FlushPolicy, typename ThreadingPolicy>
 	class stdout_sink 
@@ -463,9 +372,9 @@ namespace lwlog::sinks
 	};
 }
 ```
-In the example above, ```stdout_sink``` inherits from ```lwlog::sinks::sink``` and has two template parameters to handle the flush policy and the threading policy respectively.
+In the example above, ```stdout_sink``` inherits from ```CLog::sinks::sink``` and has two template parameters to handle the flush policy and the threading policy respectively.
 ### Step 2: Configure ANSI Color Support
-The first template parameter for ```lwlog::sinks::sink``` indicates whether the sink supports ANSI colors. Set this to true for console sinks that utilize console-specific color codes. If set to false, the sink will ignore color flags in the pattern.
+The first template parameter for ```CLog::sinks::sink``` indicates whether the sink supports ANSI colors. Set this to true for console sinks that utilize console-specific color codes. If set to false, the sink will ignore color flags in the pattern.
 ### Step 3: Implement the sink_it() Function
 The ```sink_it()``` function is where your sink handles the log message. It receives a ```const details::record&```, representing the log message.
 ```cpp
@@ -484,7 +393,7 @@ In this function:
 If your sink is stream-based (e.g., writing to stdout, stderr, or a file), you should also consider a flushing policy. While the flush policy needs to be provided as part of the interface, it might not be applicable if your sink sends data in a non-stream-based manner.
 ### Full Example
 ```cpp
-namespace lwlog::sinks
+namespace CLog::sinks
 {
 	template<typename FlushPolicy, typename ThreadingPolicy>
 	class stdout_sink 
@@ -517,7 +426,7 @@ namespace lwlog::sinks
 #include "sink.h"
 #include "policy/sink_color_policy.h"
 
-namespace lwlog::sinks
+namespace CLog::sinks
 {
 	template<typename ThreadingPolicy>
 	class new_custom_sink
@@ -534,7 +443,7 @@ namespace lwlog::sinks
 }
 ```
 ## Default logger
-***lwlog*** provides a globally accessible default logger, designed for convenience and ease of use.\
+***CLog*** provides a globally accessible default logger, designed for convenience and ease of use.\
 Here are some key points about this logger:
 - **Pre-configured:** It's set up with a default configuration, eliminating the need for manual setup for simple logging tasks. It's synchronous.
 - **Global Access:** It's a global logger, making it accessible from anywhere within your application.
@@ -542,25 +451,25 @@ Here are some key points about this logger:
 - **Sink configuration:** By default, it sinks to stdout, making it suitable for console-based applications or debugging sessions.
 - **Independent:** The default logger isn't registered in the logger registry. This means it operates independently of any other custom loggers you might set up.
   
-Before you start using the default logger, it requires initialization through a specific function call. Once initialized, you can log messages without the need to manually create logger instances, which is particularly useful for small projects or for getting started quickly with ***lwlog***.
+Before you start using the default logger, it requires initialization through a specific function call. Once initialized, you can log messages without the need to manually create logger instances, which is particularly useful for small projects or for getting started quickly with ***CLog***.
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
-	lwlog::init_default_logger();
+	CLog::init_default_logger();
 	
-	lwlog::info("Info message");
-	lwlog::warning("Warning message");
-	lwlog::error("Error message");
-	lwlog::critical("Critical message");
-	lwlog::debug("Debug message");
+	CLog::info("Info message");
+	CLog::warning("Warning message");
+	CLog::error("Error message");
+	CLog::critical("Critical message");
+	CLog::debug("Debug message");
 
-	lwlog::set_level_filter(lwlog::level::debug | lwlog::level::critical);
-	lwlog::info("Will not be displayed");
+	CLog::set_level_filter(CLog::level::debug | CLog::level::critical);
+	CLog::info("Will not be displayed");
 
-	lwlog::set_pattern("[%T] [%n] [%l]: %v");
-	lwlog::debug("Will be displayed according to the new pattern");
+	CLog::set_pattern("[%T] [%n] [%l]: %v");
+	CLog::debug("Will be displayed according to the new pattern");
 
 	return 0;
 }
@@ -575,17 +484,17 @@ int main()
 [20:00:15] [DEFAULT] [debug]: Will be displayed according to the new pattern
 ```
 ## Global operations
-In order to apply a logger function to all loggers present in the registry, you can use the function ```lwlog::apply_to_all()``` in such manner
+In order to apply a logger function to all loggers present in the registry, you can use the function ```CLog::apply_to_all()``` in such manner
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
-	auto console = std::make_shared<lwlog::console_logger>("CONSOLE");
-	auto file = std::make_shared<lwlog::file_logger>("FILE", "C:/Users/user/Desktop/LogFolder/LOGS.txt");
+	auto console = std::make_shared<CLog::console_logger>("CONSOLE");
+	auto file = std::make_shared<CLog::file_logger>("FILE", "C:/Users/user/Desktop/LogFolder/LOGS.txt");
 	
 	//Pattern will be applied to all loggers present in the registry
-	lwlog::apply_to_all([](lwlog::logger_ptr logger)
+	CLog::apply_to_all([](CLog::logger_ptr logger)
 		{
 			logger->set_pattern("[%T] [%n] [%l]: %v");
 		});
@@ -595,54 +504,54 @@ int main()
 ```
 ## Accessing a logger from the global registry by name
 ```cpp
-#include "lwlog.h"
+#include "CLog.h"
 
 int main()
 {
-	auto console = std::make_shared<lwlog::console_logger>("CONSOLE");
+	auto console = std::make_shared<CLog::console_logger>("CONSOLE");
 	
-	lwlog::get("CONSOLE")->critical("First critical message");
+	CLog::get("CONSOLE")->critical("First critical message");
 	
 	return 0;
 }
 ```
 ## Disabling logging
-In most scenarios, you want to be able to disable logging entirely from your codebase. ***lwlog*** provides a flexible way to achieve this using preprocessor directives.
-To turn off all logging function calls, define the ```LWLOG_DISABLE``` preprocessor directive at the top of your source file.
-When ```LWLOG_DISABLE``` is defined, all logging calls expand to nothing.
+In most scenarios, you want to be able to disable logging entirely from your codebase. ***CLog*** provides a flexible way to achieve this using preprocessor directives.
+To turn off all logging function calls, define the ```CLog_DISABLE``` preprocessor directive at the top of your source file.
+When ```CLog_DISABLE``` is defined, all logging calls expand to nothing.
 ```cpp
-#define LWLOG_DISABLE
-#define LWLOG_ERROR_OFF
-#include "lwlog.h"
+#define CLog_DISABLE
+#define CLog_ERROR_OFF
+#include "CLog.h"
 
 int main()
 {
-	LWLOG_INIT_DEFAULT_LOGGER();
-	LWLOG_SET_PATTERN("[%T] [%n] [%l]: %v");
-	LWLOG_SET_LEVEL_FILTER(lwlog::level::error | lwlog::level::critical);
-	LWLOG_ERROR("First error message");
+	CLog_INIT_DEFAULT_LOGGER();
+	CLog_SET_PATTERN("[%T] [%n] [%l]: %v");
+	CLog_SET_LEVEL_FILTER(CLog::level::error | CLog::level::critical);
+	CLog_ERROR("First error message");
 	return 0;
 }
 ```
 # Tweakme
-The [***tweakme.h***](https://github.com/ChristianPanov/lwlog/blob/master/lwlog/src/tweakme.h) file contains macros which serve the purpose of configurations.\
-Depending on your needs, you can switch on and off certain features. Switching them off will completely remove them from the ***lwlog*** code which will increase performance and reduce overhead, because you shouldn't pay for what you don't need.
+The [***tweakme.h***](https://github.com/Sirmeelynx/CLog/blob/master/CLog/src/tweakme.h) file contains macros which serve the purpose of configurations.\
+Depending on your needs, you can switch on and off certain features. Switching them off will completely remove them from the ***CLog*** code which will increase performance and reduce overhead, because you shouldn't pay for what you don't need.
 Macro | Off(0) - Default | On(1)
 ------------ | ------------- | -------------
-```LWLOG_NO_TIME``` | Decreased performance. Has overhead of retrieving the system time and saving it in memory | Increased performance. No overhead. Time flags will result into nothing
-```LWLOG_USE_LOCALTIME``` | Time flags will result into local time | Time flags will result into UTC(GMT) time
-```LWLOG_USE_PRECISE_UNITS``` | Slightly increased performance. No overhead. Precise time unit(microsecond, millisecond, nanosecond) flags result into nothing | Slightly decreased performance. Has overhead of retrieving needed data to calculate precise time units
-```LWLOG_USE_THREAD_ID``` | Slightly increased performance. No overhead. ```{thread}``` or ```%t``` will result into nothing | Slightly decreased performance. Has overhead of retrieving the current thread id(tid) and saving it in memory
-```LWLOG_USE_PROCESS_ID``` | Slightly increased performance. No overhead. ```{process}``` or  ```%P``` will result into nothing | Slightly decreased performance. Has overhead of retrieving the current process id(pid) and saving it in memory
+```CLog_NO_TIME``` | Decreased performance. Has overhead of retrieving the system time and saving it in memory | Increased performance. No overhead. Time flags will result into nothing
+```CLog_USE_LOCALTIME``` | Time flags will result into local time | Time flags will result into UTC(GMT) time
+```CLog_USE_PRECISE_UNITS``` | Slightly increased performance. No overhead. Precise time unit(microsecond, millisecond, nanosecond) flags result into nothing | Slightly decreased performance. Has overhead of retrieving needed data to calculate precise time units
+```CLog_USE_THREAD_ID``` | Slightly increased performance. No overhead. ```{thread}``` or ```%t``` will result into nothing | Slightly decreased performance. Has overhead of retrieving the current thread id(tid) and saving it in memory
+```CLog_USE_PROCESS_ID``` | Slightly increased performance. No overhead. ```{process}``` or  ```%P``` will result into nothing | Slightly decreased performance. Has overhead of retrieving the current process id(pid) and saving it in memory
 # Performance
-So how does ***lwlog*** achieve this performance? In the following section, I will break down all the performance-enhancing decisions that I've made.
+So how does ***CLog*** achieve this performance? In the following section, I will break down all the performance-enhancing decisions that I've made.
 ### Asynchronous logging
 Asynchronous logging is a very interesting topic because a lot of decisions need to be made and a lot of factors to be taken into account. For one, do we need a bounded or a dynamic queue, and what type of queue in terms of producer-consumer model.
-Cache efficiency is a topic of its own and ensuring atomicity of operations is not exactly a trivial task. Let's look at how ***lwlog*** handles all of that.
+Cache efficiency is a topic of its own and ensuring atomicity of operations is not exactly a trivial task. Let's look at how ***CLog*** handles all of that.
 #### Queue Concurrency Model
-As mentioned before, ***lwlog*** takes a smart approach in implementing the queue, internally selecting between the *SPSC (Single Producer Single Consumer)* and *MPSC (Multiple Producer Single Consumer)* models based on the configured thread-safety of the logger. This automatic selection mechanism significantly cuts down unnecessary overhead while ensuring robust atomicity where it matters the most.
+As mentioned before, ***CLog*** takes a smart approach in implementing the queue, internally selecting between the *SPSC (Single Producer Single Consumer)* and *MPSC (Multiple Producer Single Consumer)* models based on the configured thread-safety of the logger. This automatic selection mechanism significantly cuts down unnecessary overhead while ensuring robust atomicity where it matters the most.
 #### Cache Efficiency
-The queue contains two atomic variables for the current write and read index, a very standard and straightforward detail of ring buffer implementations. However, that approach introduces the problem of false sharing when multiple threads read and modify them. False sharing occurs when variables are situated closely in memory, causing them to reside on the same cache line. This results in frequent and unnecessary cache invalidations, leading to suboptimal performance. To mitigate this, ***lwlog*** aligns the read and write indices to cache lines using **alignas(64)**, based on the assumption of a **64-byte** cache line size — a common characteristic of modern CPU architectures. This alignment ensures that these indices remain isolated from each other in terms of cache lines, effectively eliminating false sharing. The result is a more efficient utilization of the CPU cache, translating to enhanced overall performance.
+The queue contains two atomic variables for the current write and read index, a very standard and straightforward detail of ring buffer implementations. However, that approach introduces the problem of false sharing when multiple threads read and modify them. False sharing occurs when variables are situated closely in memory, causing them to reside on the same cache line. This results in frequent and unnecessary cache invalidations, leading to suboptimal performance. To mitigate this, ***CLog*** aligns the read and write indices to cache lines using **alignas(64)**, based on the assumption of a **64-byte** cache line size — a common characteristic of modern CPU architectures. This alignment ensures that these indices remain isolated from each other in terms of cache lines, effectively eliminating false sharing. The result is a more efficient utilization of the CPU cache, translating to enhanced overall performance.
 ```cpp
 static constexpr auto cache_line_size{ std::hardware_destructive_interference_size };
 
@@ -650,9 +559,9 @@ alignas(cache_line_size) std::atomic_size_t m_write_index{};
 alignas(cache_line_size) std::atomic_size_t m_read_index{};
 ```
 #### Atomicity
-Due to the multithreaded nature of asynchronous logging, atomicity of operations needs to be ensured, meaning operations to be executed without any interference from concurrent operations. That's commonly handled with mutexes and locks, however, they introduce overhead due to frequent context switches and cache coherency protocols. ***lwlog*** solves this problem by making the queue lock-free. Lock-free data structures use atomic operations to ensure atomicity instead of mutexes and locking mechanisms. This significantly reduces contention between threads, which reduces cache line invalidations that lead to stalled CPU cycles, increased memory traffic, and delayed execution.
+Due to the multithreaded nature of asynchronous logging, atomicity of operations needs to be ensured, meaning operations to be executed without any interference from concurrent operations. That's commonly handled with mutexes and locks, however, they introduce overhead due to frequent context switches and cache coherency protocols. ***CLog*** solves this problem by making the queue lock-free. Lock-free data structures use atomic operations to ensure atomicity instead of mutexes and locking mechanisms. This significantly reduces contention between threads, which reduces cache line invalidations that lead to stalled CPU cycles, increased memory traffic, and delayed execution.
 #### Memory Order
-Atomic operations on the other hand are trickier to get right due to memory ordering. Memory ordering refers to the order in which atomic operations are executed with respect to other atomic operations. Atomic loads and stores have a default ordering, which provides the strongest guarantee of sequential consistency. However, most of the time weaker ordering, which introduces much less overhead, would suffice. So, choosing the right ordering instead of over-specifying by relying on the default one will lead to performance benefits. Under-specifying, however, is also dangerous because it can lead to very subtle bugs. ***lwlog*** chooses the least strict memory ordering needed for the given operation, eliminating unnecessary overhead while still providing the correct sequential consistency.
+Atomic operations on the other hand are trickier to get right due to memory ordering. Memory ordering refers to the order in which atomic operations are executed with respect to other atomic operations. Atomic loads and stores have a default ordering, which provides the strongest guarantee of sequential consistency. However, most of the time weaker ordering, which introduces much less overhead, would suffice. So, choosing the right ordering instead of over-specifying by relying on the default one will lead to performance benefits. Under-specifying, however, is also dangerous because it can lead to very subtle bugs. ***CLog*** chooses the least strict memory ordering needed for the given operation, eliminating unnecessary overhead while still providing the correct sequential consistency.
 ### Pattern Formatting
 Formatting tends to be a bottleneck in logging since parsing and formatting imply a lot of consecutive searches and replaces in strings. Most of the time, that cost is mitigated by simply handing it off to a background thread to do the processing. However, a smarter approach could be taken by analyzing what operations actually have to happen every time a log function is called and what operations could happen only once for the lifetime of the given pattern.\
 Having that in mind, the formatting pattern is parsed only once, completely off the log call site. Log call functions are solely responsible for replacing the flags with their respective values, significantly reducing the workload on each log call. This design choice ensures that we are not parsing the pattern repetitively, a task that would otherwise impose additional performance overhead on every log action.\
@@ -672,5 +581,3 @@ A simple solution would be to increase the stream buffer size manually to avoid 
 std::setvbuf(stdout, NULL, _IOFBF, 4194304);
 std::fwrite("Hello, World!", 14, 1, stdout);
 ```
-### Heuristics
-Heuristics are logical shortcuts, approximate assumptions, that trade optimality, completeness, accuracy, or precision for speed. They provide a plausible and quicker solution rather than a guaranteed one. These educated guesses often eliminate the need for expensive computations, tapping into the power of implication and trend analysis to derive quick, plausible results. In practice, heuristics are like the seasoned intuition of an expert, cutting through the noise and focusing on what truly matters to make swift decisions.
