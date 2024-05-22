@@ -1,6 +1,6 @@
-workspace "lwlog"
+workspace "CLog"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Main"
 
 	configurations {
 		"Debug",
@@ -13,8 +13,8 @@ workspace "lwlog"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-project "lwlog"
-	location "lwlog"
+project "CLog"
+	location "CLog"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
@@ -40,17 +40,17 @@ project "lwlog"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines "LWLOG_DEBUG"
+		defines "CLog_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "LWLOG_RELEASE"
+		defines "CLog_RELEASE"
 		runtime "Release"
 		optimize "speed"
 
-project "Sandbox"
-	location "Sandbox"
+project "Main"
+	location "Main"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
