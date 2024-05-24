@@ -3,6 +3,20 @@
 git clone --recursive https://github.com/Sirmeelynx/CLog
 ```
 # Project Setup and Testing
+### In Visual Studio
+- If you don't have the "Desktop development with C++ Workload installed" you can download and install using the visual studio installer app
+- Once downloaded, unzip the project and open in visual studio
+- Once Open, Select "CLog_Main.exe" and hit the run button at the top
+- VS will launch the program "Playground" in a Console Window.
+
+### In a Github codespace environment running linux
+- Unzip the project, create a local git repository out of the project and push to github
+- In Github, Select the codespace tab and Click Create codespace on master
+- Github will create a codespace environment with a linux image also installed with the neccessary tools as described .devcontainer/devcontainer.json
+- Codespace will spinup a vs-code IDE running in a linux environment which will install Cmake and CmakeTools, once this is complete, wait for a prompt to select your prefered compiler, Select the gcc option.
+- Once done, click the build and run button at the buttom of the IDE and the program "Playground" will launch on the integrated terminal.
+
+<iframe src="https://1drv.ms/v/c/54dd57fc958b702b/IQNXIbASH-vkSJM4v1SjkSw3Afcpttr62spUrLJ29jXS3IA" width="3584" height="2096" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
 # Features
 - Written in modern C++17
