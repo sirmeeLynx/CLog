@@ -6,6 +6,12 @@
 #include <fstream>
 #include <filesystem>
 
+#if defined(_WIN32) || defined(WIN32) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__BORLANDC__)
+#define OS_WIN true
+#else
+#define OS_WIN false
+#endif
+
 namespace fs = std::filesystem;
 
 //declare ANSI Colors escape code for std::out
@@ -86,7 +92,10 @@ void startUX()
 	std::string prompt = "\n\nWould you like to try the playground again? Enter [Y] or any key to end the demo: ";
 	do{
 		std::cout << "\033[2J\033[1;1H"; // ANSI escape sequence to clear the screen
-		displayUXBanner();
+		if (!OS_WIN)
+		{
+			displayUXBanner();
+		}
 		displayChoices();
 	}
 	while(getUserInput<std::string>(prompt) == "Y");
