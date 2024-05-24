@@ -4,6 +4,7 @@
 #include "sinks/file_sink.h"
 #include "sinks/stdout_sink.h"
 #include "sinks/stderr_sink.h"
+#include "sinks/http_sink.h"
 #include "details/topic.h"
 
 namespace CLog
@@ -28,11 +29,13 @@ namespace CLog
 	using console_logger_mt			= basic_logger_mt<sinks::stdout_sink>;
 	using file_logger				= basic_logger<sinks::file_sink>;
 	using file_logger_mt			= basic_logger_mt<sinks::file_sink>;
+	using http_logger_mt			= basic_logger_mt<sinks::http_sink>;
 
 	using async_console_logger		= async_logger<sinks::stdout_sink>;
 	using async_console_logger_mt	= async_logger_mt<sinks::stdout_sink>;
 	using async_file_logger			= async_logger<sinks::file_sink>;
 	using async_file_logger_mt		= async_logger_mt<sinks::file_sink>;
+	using async_http_logger_mt		= async_logger_mt<sinks::http_sink>;
 
 	using default_overflow_policy	= block_overflow_policy;
 	using default_flush_policy		= immediate_flush_policy;
@@ -123,4 +126,4 @@ namespace CLog
 #define CLog_DEBUG()
 #endif
 
-#include "CLog_impl.h"
+#include "clog_impl.h"
