@@ -16,7 +16,6 @@ git clone --recursive https://github.com/Sirmeelynx/CLog
 - Codespace will spinup a vs-code IDE running in a linux environment which will install Cmake and CmakeTools, once this is complete, wait for a prompt to select your prefered compiler, Select the gcc option.
 - Once done, click the build and run button at the buttom of the IDE and the program "Playground" will launch on the integrated terminal.
 
-<iframe src="https://1drv.ms/v/c/54dd57fc958b702b/IQNXIbASH-vkSJM4v1SjkSw3Afcpttr62spUrLJ29jXS3IA" width="3584" height="2096" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
 # Features
 - Written in modern C++17
