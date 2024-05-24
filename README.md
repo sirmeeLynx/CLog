@@ -2,6 +2,8 @@
 ```
 git clone --recursive https://github.com/Sirmeelynx/CLog
 ```
+# Project Setup and Testing
+
 # Features
 - Written in modern C++17
 - Very fast synchronous and asynchronous logging

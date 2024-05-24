@@ -6,9 +6,7 @@ build/
 # Visual Studio
 .vs/
 **.sln
-**.vcxproj
 **.vcxproj.filters
-**.vcxproj.user
 
 # Visual Studio Code
 .vscode/
